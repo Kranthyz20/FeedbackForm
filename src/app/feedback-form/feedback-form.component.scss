@@ -1,0 +1,85 @@
+.donut{
+    height: 50px;
+    width: 50px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid black;    
+    color: rgb(123, 88, 136);   
+    font-weight: bold;
+    font-size: 15px;
+    //text-align: center;     
+}
+.donut-amber{
+    background-color: #ff9900;
+}
+
+.full-width{
+    width: 93%;
+    color: rgb(123, 88, 136);   
+}
+
+.title{
+   font-size: 13px;       
+   color: rgb(123, 88, 136);
+   font-weight: bold;      
+}
+
+.card{    
+  padding: 10px;
+  margin-bottom: -10px; 
+}
+
+.tab{
+    color: white;
+    font-weight: bold;
+}
+
+.feedback{
+    color: rgb(211, 208, 212);
+    text-align: center;
+    padding-top: 5px;    
+}
+
+.btn{
+    align-content: center;
+}
+
+.background-primary {
+    background-color: rgb(123, 88, 136)!important;
+    border: 1px solid rgb(123, 88, 136);
+  }
+
+.text-floral-white {
+    color: floralwhite!important;
+}
+
+.Per{
+    font-size: 50px;    
+    color: white;
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;    
+    z-index: -10;
+}
+
+.finalCard{
+    height: 350px;
+    margin-top: 10%;
+}
+
+.myClass1{
+    background-color: red;
+}
+
+.myClass2{
+    background-color: yellow;
+}
+
+.myClass3{
+    background-color: green;
+}

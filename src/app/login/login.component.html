@@ -1,0 +1,56 @@
+<video muted autoplay loop #videoPlayer id="myVideo">
+    <source src="/assets/images/background.mp4" type="video/mp4"> Your browser does not support HTML5 video.
+  </video>
+
+<div fxLayoutAlign="center center">
+  <mat-card class="login-card" *ngIf="!taken && !errMsg">
+    <mat-toolbar class="toolbar">Login
+      <span class="flex-spacer"></span>
+      <i class="fa fa-user fa-lg"></i>
+    </mat-toolbar>
+    <form #loginForm="ngForm" novalidate (submit)="onLoginFormSubmit(loginForm.value,$event)">
+      <br>
+      <mat-form-field fxLayout="column" [hideRequiredMarker]="true">
+        <input matInput #perid="ngModel" placeholder="Username" type="text" required [(ngModel)]="user.perid" name="perid">
+        <mat-error *ngIf="perid.errors?.required">Username is required</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field fxLayout="column" [hideRequiredMarker]="true">
+        <input matInput #password="ngModel" placeholder="Password" type="password" required [(ngModel)]="user.password" name="password">
+        <mat-error *ngIf="password.errors?.required">Password is required</mat-error>
+      </mat-form-field>
+      <p fxLayoutAlign="center center">
+        <button [disabled]="loginForm.invalid" fxLayoutAlign="center center" mat-raised-button type="submit" class="button">Login</button>
+      </p>
+      <br>
+      <span fxLayoutAlign="center center" *ngIf="spinner &&!errMsg">
+        <mat-spinner [diameter]="40"></mat-spinner>&nbsp;&nbsp;
+        <h3>Loading...Please wait..!</h3>
+      </span>
+      <mat-label style="color:red" *ngIf="errorLabel">{{errorLabel}}</mat-label>
+      <br>
+    </form>
+  </mat-card>
+
+
+  <div *ngIf="taken && !errMsg" fxfLex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign.xs="start center"
+    fxLayoutAlign.sm="start center" fxLayoutAlign.gt-sm="center center" class="main">
+    <mat-card class="network-card">
+      <mat-card-title style="text-align:center">Thank you for your interest!</mat-card-title>
+      <img src="/assets/images/thank_you.gif">
+      <h3 fxLayoutAlign.gt-sm="center center"> We already have your feedback...!
+      </h3>
+    </mat-card>
+  </div>
+
+
+  <div *ngIf="errMsg" fxfLex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign.xs="start center"
+    fxLayoutAlign.sm="start center" fxLayoutAlign.gt-sm="center center" class="main">
+    <mat-card class="network-card">
+      <mat-card-title style="text-align:center">Sorry for the inconvenience!</mat-card-title>
+      <img src="/assets/images/network_issue.gif">
+      <h3 fxLayoutAlign.gt-sm="center center"> This seems to be a network issue. Please try after some time!
+      </h3>
+    </mat-card>
+  </div>
+</div>

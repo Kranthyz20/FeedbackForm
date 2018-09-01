@@ -1,0 +1,210 @@
+<video muted autoplay loop #videoPlayer id="myVideo">
+  <source src="/assets/images/background.mp4" type="video/mp4"> Your browser does not support HTML5 video.
+</video>
+<!-- *ngIf=average<=80?(average>60?background-color:yellow:background-color:red):background-color:green
+  background-color:yellow:background-color:red
+  "{'background-color': 'average' <= 80 ? 'red' : ('average' ? 'blue' : null) }" -->
+<!-- *ngIf ="average > 80 ?(average>60?background-color:yellow:background-color:red):background-color:green" -->
+
+<div class="feedback" fxLayout="row" *ngIf="!submitted">
+  <div style="text-align:right;width:55%">
+    <h3>Your Feedback Matters!</h3>
+  </div>
+  <div class="flex-spacer"></div>
+  <div fxLayoutAlign="center center" *ngIf="!userFeedback" style="margin-right:20px" class="donut">
+    {{average}}%
+  </div>
+</div>
+
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px"
+  fxLayoutGap.xs="0" *ngIf="!userFeedback && !submitted" [@expand]>
+
+  <form novalidate fxFlex fxLayoutGap="20px" [formGroup]="feedbackForm" (ngSubmit)="clickMethod()">
+
+    <mat-tab-group dynamicHeight="true" #matgroup>
+
+      <mat-tab dynamicHeight="true">
+        <ng-template mat-tab-label>
+          <span class="tab">Quality of Delivery / Service</span>
+        </ng-template>
+        <div *ngFor="let bind of formBindings">
+          <mat-card class="container card" *ngFor="let f of bind.firstFields">
+            <mat-card-title class="title">{{f.Label}}</mat-card-title>
+            <p style="margin-bottom:-5px;margin-top:-15px">
+              <mat-form-field appearance="legacy" class="full-width" [hideRequiredMarker]="true">
+                <mat-label>Your Feedback</mat-label>
+                <textarea matInput rows="2" formControlName="{{f.Question}}" required></textarea>
+                <mat-error *ngIf="'formErrors.' + 'f.Question'">{{validationMessages.validationMessage.required}}</mat-error>
+              </mat-form-field>&nbsp;
+              <mat-form-field style="width:75px">
+                <mat-select placeholder="Rate Us?" #panelColor formControlName="{{f.Rating}}" style="text-align:center">
+                  <mat-option style="background-color: #00FF00; color:black;height:25px;text-align:center" value="10">10</mat-option>
+                  <mat-option style="background-color: #66ff00; color:black;height:25px;text-align:center" value="9">9</mat-option>
+                  <mat-option style="background-color: #99ff00; color:black;height:25px;text-align:center" value="8">8</mat-option>
+                  <mat-option style="background-color: #ccff00; color:black;height:25px;text-align:center" value="7">7</mat-option>
+                  <mat-option style="background-color: #FFFF00; color:black;height:25px;text-align:center" value="6">6</mat-option>
+                  <mat-option style="background-color: #FFCC00; color:black;height:25px;text-align:center" value="5">5</mat-option>
+                  <mat-option style="background-color: #ff9900; color:black;height:25px;text-align:center" value="4">4</mat-option>
+                  <mat-option style="background-color: #ff6600; color:black;height:25px;text-align:center" value="3">3</mat-option>
+                  <mat-option style="background-color: #FF3300; color:black;height:25px;text-align:center" value="2">2</mat-option>
+                  <mat-option style="background-color: #FF0000; color:black;height:25px;text-align:center" value="1">1</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+          </mat-card>
+        </div>
+        <br>
+        <br>
+        <a mat-raised-button style="margin-left:30px;float:left" *ngIf="matgroup.selectedIndex==1 || matgroup.selectedIndex==2" (click)='matgroup.selectedIndex = matgroup.selectedIndex-1'>
+          <i class="fa fa-chevron-left fa-lg" aria-hidden="true"></i>
+        </a>
+        <a mat-raised-button style="margin-right:30px; float:right" *ngIf="matgroup.selectedIndex==0 || matgroup.selectedIndex==1"
+          (click)='matgroup.selectedIndex = matgroup.selectedIndex + 1'>
+          <i class="fa fa-chevron-right fa-lg" aria-hidden="true"></i>
+        </a>
+        <p>
+          <br>
+          <br>
+        </p>
+      </mat-tab>
+      <mat-tab dynamicHeight="true">
+        <ng-template mat-tab-label>
+          <span class="tab">Quality of Experience</span>
+        </ng-template>
+        <div *ngFor="let bind of formBindings">
+          <mat-card class="container card" *ngFor="let f of bind.secondFields">
+            <mat-card-title class="title">{{f.Label}}</mat-card-title>
+            <p style="margin-bottom:-5px;margin-top:-15px">
+              <mat-form-field appearance="legacy" class="full-width" [hideRequiredMarker]="true">
+                <mat-label>Your Feedback</mat-label>
+                <textarea matInput rows="2" formControlName="{{f.Question}}" required></textarea>
+                <mat-error *ngIf="'formErrors.' + 'f.Question'">{{validationMessages.validationMessage.required}}</mat-error>
+              </mat-form-field>&nbsp;
+              <mat-form-field style="width:75px">
+                <mat-select placeholder="Rate Us?" #panelColor formControlName="{{f.Rating}}" style="text-align:center">
+                  <mat-option style="background-color: #00FF00; color:black;height:25px;text-align:center" value="10">10</mat-option>
+                  <mat-option style="background-color: #66ff00; color:black;height:25px;text-align:center" value="9">9</mat-option>
+                  <mat-option style="background-color: #99ff00; color:black;height:25px;text-align:center" value="8">8</mat-option>
+                  <mat-option style="background-color: #ccff00; color:black;height:25px;text-align:center" value="7">7</mat-option>
+                  <mat-option style="background-color: #FFFF00; color:black;height:25px;text-align:center" value="6">6</mat-option>
+                  <mat-option style="background-color: #FFCC00; color:black;height:25px;text-align:center" value="5">5</mat-option>
+                  <mat-option style="background-color: #ff9900; color:black;height:25px;text-align:center" value="4">4</mat-option>
+                  <mat-option style="background-color: #ff6600; color:black;height:25px;text-align:center" value="3">3</mat-option>
+                  <mat-option style="background-color: #FF3300; color:black;height:25px;text-align:center" value="2">2</mat-option>
+                  <mat-option style="background-color: #FF0000; color:black;height:25px;text-align:center" value="1">1</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+          </mat-card>
+        </div>
+        <br>
+        <br>
+        <a mat-raised-button style="margin-left:30px;float:left" *ngIf="matgroup.selectedIndex==1 || matgroup.selectedIndex==2" (click)='matgroup.selectedIndex = matgroup.selectedIndex-1'>
+          <i class="fa fa-chevron-left fa-lg" aria-hidden="true"></i>
+        </a>
+        <a mat-raised-button style="margin-right:30px; float:right" *ngIf="matgroup.selectedIndex==0 || matgroup.selectedIndex==1"
+          (click)='matgroup.selectedIndex = matgroup.selectedIndex + 1'>
+          <i class="fa fa-chevron-right fa-lg" aria-hidden="true"></i>
+        </a>
+        <p>
+          <br>
+          <br>
+        </p>
+      </mat-tab>
+      <mat-tab dynamicHeight="true">
+        <ng-template mat-tab-label>
+          <span class="tab">Team Experience</span>
+        </ng-template>
+        <div *ngFor="let bind of formBindings">
+          <mat-card class="container card" *ngFor="let f of bind.thirdFields" required>
+            <mat-card-title class="title">{{f.Label}}</mat-card-title>
+            <p style="margin-bottom:-5px;margin-top:-15px">
+              <mat-form-field appearance="legacy" class="full-width" [hideRequiredMarker]="true">
+                <mat-label>Your Feedback</mat-label>
+                <textarea matInput rows="2" formControlName="{{f.Question}}"></textarea>
+                <mat-error *ngIf="'formErrors.' + 'f.Question'">{{validationMessages.validationMessage.required}}</mat-error>
+              </mat-form-field>&nbsp;
+              <mat-form-field style="width:75px">
+                <mat-select placeholder="Rate Us?" #panelColor formControlName="{{f.Rating}}" style="text-align:center">
+                  <mat-option style="background-color: #00FF00; color:black;height:25px;text-align:center" value="10">10</mat-option>
+                  <mat-option style="background-color: #66ff00; color:black;height:25px;text-align:center" value="9">9</mat-option>
+                  <mat-option style="background-color: #99ff00; color:black;height:25px;text-align:center" value="8">8</mat-option>
+                  <mat-option style="background-color: #ccff00; color:black;height:25px;text-align:center" value="7">7</mat-option>
+                  <mat-option style="background-color: #FFFF00; color:black;height:25px;text-align:center" value="6">6</mat-option>
+                  <mat-option style="background-color: #FFCC00; color:black;height:25px;text-align:center" value="5">5</mat-option>
+                  <mat-option style="background-color: #ff9900; color:black;height:25px;text-align:center" value="4">4</mat-option>
+                  <mat-option style="background-color: #ff6600; color:black;height:25px;text-align:center" value="3">3</mat-option>
+                  <mat-option style="background-color: #FF3300; color:black;height:25px;text-align:center" value="2">2</mat-option>
+                  <mat-option style="background-color: #FF0000; color:black;height:25px;text-align:center" value="1">1</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
+          </mat-card>
+          <mat-card class="container card">
+            <mat-card-title class="title">Do you have any other comments, questions, or concerns?</mat-card-title>
+            <mat-form-field style="width:100%">
+              <textarea matInput placeholder="Your feedback" rows="5" formControlName="OptionalComments"></textarea>
+            </mat-form-field>
+          </mat-card>
+          <br>
+          <br>
+          <a mat-raised-button style="margin-left:30px;float:left" *ngIf="matgroup.selectedIndex==1 || matgroup.selectedIndex==2" (click)='matgroup.selectedIndex = matgroup.selectedIndex-1'>
+            <i class="fa fa-chevron-left fa-lg" aria-hidden="true"></i>
+          </a>
+          <a mat-raised-button style="margin-right:30px; float:right" *ngIf="matgroup.selectedIndex==0 || matgroup.selectedIndex==1"
+            (click)='matgroup.selectedIndex = matgroup.selectedIndex + 1'>
+            <i class="fa fa-chevron-right fa-lg" aria-hidden="true"></i>
+          </a>
+          <p>
+            <br>
+          </p>
+        </div>
+        <div fxLayoutAlign="center center" *ngIf="feedbackForm.valid" [@expand]>
+          <mat-card class="container card" fxLayoutAlign="center center" style="width:35%;background: rgb(253, 162, 139);">
+            <h4>You seems to be
+              <span class="Per">{{average}}%</span> satisfied with our service!</h4>
+          </mat-card>
+        </div>
+        <br>
+        <br>
+        <div fxLayoutAlign="center center">
+          <button type="submit" [disabled]="feedbackForm.invalid" mat-raised-button>Submit</button>
+        </div>        
+        <br>
+        <br>
+        <br>
+      </mat-tab>
+
+    </mat-tab-group>
+  </form>
+</div>
+
+<div fxLayoutAlign="center center" *ngIf="submitted" style="padding-top:10px;" [@expand]>
+  <mat-card>
+    <mat-card-header fxLayoutAlign="center center">
+      <mat-card-title>
+        <h2>Thank you for your valuable feedback!</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <img class="finalCard" mat-card-image src="/assets/images/final.jpg">
+  </mat-card>
+</div>
+
+<div fxLayoutAlign="center center" *ngIf="spinner" style="margin-top:10%">
+  <mat-card>
+    <span fxLayoutAlign="center center">
+      <mat-spinner [diameter]="40"></mat-spinner>&nbsp;&nbsp;&nbsp;&nbsp;
+      <h3>Submiting your feedback...Please wait..!</h3>
+    </span>
+  </mat-card>
+</div>
+
+<div *ngIf="errMess" fxfLex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutAlign.xs="start center"
+  fxLayoutAlign.sm="start center" fxLayoutAlign.gt-sm="center center" class="main">
+  <mat-card class="network-card">
+    <mat-card-title style="text-align:center">Sorry for the inconvenience!</mat-card-title>
+    <img src="/assets/images/network_issue.gif">
+    <h3 fxLayoutAlign.gt-sm="center center"> This seems to be a network issue. Please try after some time!
+    </h3>
+  </mat-card>
+</div>
